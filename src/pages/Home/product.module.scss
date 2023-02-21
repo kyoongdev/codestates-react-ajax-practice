@@ -1,0 +1,23 @@
+@use "../../styles/aline.scss" as m;
+
+.wrapper {
+  border: black solid;
+  border-radius: 8px;
+  flex-grow: 1;
+  width: 300px;
+  height: 300px;
+  
+  @include m.flex(center,center,column);
+  > img {
+    height: 200px;
+    width: 300px;
+    object-fit: contain;
+  }
+
+  > h2 {
+    font-size: 24px;
+    font-weight: 600px;
+    margin-top: 12px;
+  }
+}
+
