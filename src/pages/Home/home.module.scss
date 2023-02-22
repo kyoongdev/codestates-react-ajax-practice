@@ -1,0 +1,39 @@
+@use "../../styles/constants" as c;
+@use "../../styles/mixins" as m;
+
+.wrapper {
+  min-height: 100vh;
+  background-color: c.$C_WHITE_GRAY;
+  
+}
+
+.header {
+  @include m.flex();
+
+  padding: 26px;
+  background: linear-gradient(to left, #6ad7ff, #48ec97);
+  
+  > h1 {
+    font-size: 32px;
+    font-weight: 500;
+    color: c.$C_WHITE;
+  }
+}
+
+.productsWrapper {
+  @include m.flex(center, center, column);
+
+  > ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, auto));
+    gap: 22px;
+
+    width: 100%;
+    // scroll할 대상에는 height 또는 width값이 있어야됨
+    max-height: calc(100vh - 68px);
+    padding: 42px;
+
+    overflow-y: scroll;
+    flex-wrap: wrap;
+  }
+}
