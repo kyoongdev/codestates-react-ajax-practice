@@ -1,0 +1,40 @@
+@use "../../styles/constants" as c;
+@use "../../styles/mixins" as m;
+
+.wrapper {
+    width: 100%;
+    height: 100vh;
+}
+.header{
+    @include m.flex();
+
+    padding:20px;
+    background-color: c.$C_BLACK;
+    > h1 {
+        font-size: 40px;
+        color:c.$C_WHITE;
+        
+    }
+}
+
+.productsWrapper{
+    //@include m.flex(center,center,column);
+    width: 100%;
+    
+    > ul {
+        /*@include m.flex(flex-start);
+        overflow: scroll;
+        row-gap:8px;
+        column-gap:12px;
+        max-height: calc(100vh - 90px);
+        padding:20px;
+        overflow-y: scroll;
+        flex-wrap: wrap;*/
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(326px,auto));
+        row-gap: 20px;
+        
+        
+    }
+    
+}
