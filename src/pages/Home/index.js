@@ -24,7 +24,7 @@ const Home = ()=>{
             <header className={s.header}>
                 <h1 className={s.title}>home</h1>
             </header>
-            <section>
+            <section >
                 <ul>
                     {products.map((product)=>{
                         return <Product product={product}/>
