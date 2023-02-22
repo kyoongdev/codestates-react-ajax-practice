@@ -1,0 +1,32 @@
+@use "../../styles/constants" as c;
+@use "../../styles/mixins" as m;
+
+.wrapper {
+  min-height: 100vh;
+}
+.header {
+  @include m.flex();
+  padding: 20px;
+  background-color: c.$C_BLACK;
+  > h1 {
+    font-size: 42px;
+    font-weight: 500;
+    color: c.$C_WHITE;
+  }
+}
+
+.productsWrapper {
+  @include m.flex(center, center, column);
+  background: c.$C_GRAY;
+  > ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, auto));
+    column-gap: 12px;
+    row-gap: 8px;
+    max-height: calc(100vh - 82px);
+    width: 100%;
+    padding: 20px;
+    overflow-y: scroll;
+    flex-wrap: wrap;
+  }
+}
