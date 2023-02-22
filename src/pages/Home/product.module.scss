@@ -3,10 +3,18 @@
 
 .wrap {
   width: 300px;
-  height: 350px;
+  height: 360px;
   background-color: c.$C_LIGHT;
   border-radius: 10px;
   padding: 10px;
+  transition: transform 0.3s ease-out;
+  &:hover {
+    transform: scale(1.1);
+    border: 2px solid c.$C_DARK;
+  }
+  > p {
+    font-size: 15px;
+  }
 }
 
 .img_box {
@@ -41,6 +49,7 @@
   color: c.$C_LIGHT;
   font-size: 12px;
   text-align: center;
+  font-weight: 700;
   &:first-of-type {
     margin-right: 3px;
   }

@@ -13,17 +13,16 @@
   height: 60px;
   font-size: 32px;
   font-weight: 700;
-  color: white;
+  color: c.$C_LIGHT;
   background-color: c.$C_PRIMARY;
 }
 
 .items {
-  @include m.flex();
-  flex-wrap: wrap;
   width: 100%;
   max-height: calc(100vh - 60px);
   padding: 20px;
   overflow-y: scroll;
-  row-gap: 10px;
-  column-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 12px;
 }

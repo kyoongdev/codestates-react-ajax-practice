@@ -9,6 +9,7 @@ const Product = ({ product }) => {
       >
         {/*<img src={product.thumbnail} alt="product thumbnail" />*/}
       </div>
+
       <header className={styles.header}>
         <h2>{product.title}</h2>
         <div>
