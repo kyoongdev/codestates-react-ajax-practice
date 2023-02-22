@@ -5,6 +5,7 @@
   min-height: 100vh;
 }
 .header {
+  @include m.flex();
   padding: 20px;
   background-color: c.$C_BLACK;
   > h1 {
@@ -18,7 +19,8 @@
   @include m.flex(center, center, column);
   background: c.$C_GRAY;
   > ul {
-    @include m.flex(flex-start);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, auto));
     column-gap: 12px;
     row-gap: 8px;
     max-height: calc(100vh - 82px);
