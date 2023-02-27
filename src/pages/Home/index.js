@@ -1,36 +1,73 @@
 import React, { useState, useEffect } from "react";
-import { getProducts } from "../../api/Products";
+import { getProducts, searchProduct } from "../../api/Products";
 import Product from "./Product";
-
-import s from "./home.module.scss"
+import styles from "./home.module.scss"
+import { useNavigate } from "react-router-dom";
 
 const Home = ()=>{
-    const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
 
+    const [products, setProducts] = useState([]);
+    const [searchText, setSearchText] = useState('');
     const onGetProducts = async () => {
         const response = await getProducts();
     
         if (response.status === 200) {
           setProducts(response.data.products);
         }
-      };
+    };
     
     useEffect(() => {
         onGetProducts();
     }, []);
     
+    const changeSearchText = (e)=>{
+        //input에 들어간 문자열을 받아서 products 변수 변경
+        const { value } = e.currentTarget;
+        setSearchText(value);
+    }
+
+    const onSearch = async () =>{
+        const response = await searchProduct({
+            q: searchText,
+
+        });
+        if(response.status===200){
+            setProducts(response.data.products);
+            console.log(products);
+        }
+        
+    }
+    const onClear =()=>{
+        setSearchText('');
+        onGetProducts();
+    }
+
+    const onNavigateDetail=(id)=>{
+        return()=>{
+            navigate(`/${id}`);
+        };
+    }
     return(
         <main>
-            <header className={s.header}>
-                <h1 className={s.title}>home</h1>
+            <header className={styles.header}>
+                <p className={styles.title}>Home</p>
+                <div className={styles.inputContainer}>
+                    <input type="text" value={searchText} onChange={changeSearchText} />
+                    <button type="button" onClick={onSearch}>검색</button>
+                    <button type="button" onClick={onClear} >초기화</button>
+                </div>
             </header>
             <section >
                 <ul>
                     {products.map((product)=>{
-                        return <Product product={product}/>
+                        return <Product key={product.id} product={product} 
+                        onClick={onNavigateDetail(product.id)}
+                        />
                     })}
                 </ul>
             </section>
+            
         </main>
     );
 }
