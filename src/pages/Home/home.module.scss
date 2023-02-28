@@ -1,0 +1,77 @@
+@use "../../styles/constants" as c;
+@use "../../styles/mixins" as m;
+
+.wrapper {
+  min-height: 100vh;
+  background-color: c.$C_WHITE_GRAY;
+}
+
+.header {
+  @include m.flex(space-between);
+
+  width: 100%;
+  padding: 26px;
+  background: #dddddd;
+  box-shadow : 0 0px 10px 0 rgba(c.$C_BLACK, 0.3);
+  
+  position: relative;
+  z-index: 1;
+
+  > h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: c.$C_DARK_GRAY;
+  }
+
+  .searchWrapper {
+    @include m.flex();
+    margin-left: 24px;
+    
+    > input {
+      flex: 1;
+      height: 50px;
+      padding-left: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 24px;
+    }
+    > button {
+      flex-shrink: 0;
+      height: 50px;
+      padding: 0px 16px;
+      margin-left: 12px;
+      border: none;
+      border-radius: 8px;
+      background: c.$C_WHITE;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .loginBtn {
+      background-color: transparent;
+      > img {
+        width: 45px;
+        height: 45px;
+      }
+    }
+  }
+}
+
+.productsWrapper {
+  @include m.flex(center, center, column);
+
+  > ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, auto));
+    gap: 46px;
+
+    width: 100%;
+    // scroll할 대상에는 height 또는 width값이 있어야됨
+    max-height: calc(100vh - 68px);
+    padding: 62px;
+
+    overflow-y: scroll;
+    flex-wrap: wrap;
+  }
+}
