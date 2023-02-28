@@ -5,14 +5,14 @@
   @include m.flex(center, center, column);
   flex-grow: 1;
   // width: 300px;
-  height: 360px;
+  height: 420px;
   padding: 24px;
   border-radius: 24px;
   background-color: c.$C_WHITE;
 
   cursor: pointer;
   box-shadow: 2px 4px 12px rgb(0 0 0 / 10%);
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 
   &:hover {
     // scale은 다른 요소에 영향 미치지 않음
@@ -27,16 +27,15 @@
   }
 
   > h2 {
-    @include m.multi-ellipsis(24px, 22px, 1);
+    @include m.multiEllipsis(24px, 22px, 1);
     width: 200px;
-    // font-weight 왜 적용이 안될까..........
-    font-weight: 600px;
+    font-weight: bold;
     text-align: center;
     margin-top: 24px;
   }
 
   > p {
-    @include m.multi-ellipsis(16px, 22px, 2);
+    @include m.multiEllipsis(16px, 22px, 2);
     max-width: 200px;
     margin-top: 24px;
     text-align: center;

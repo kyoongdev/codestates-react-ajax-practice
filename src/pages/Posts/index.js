@@ -10,6 +10,7 @@ const ProductDetail = () => {
   // 객체안에는 key(id), value(1,2,3...)이 들어있음
   // id라는 키는 라우터에서 명시됨 (:id)
   const {id} = useParams();
+  // console.log({id})
 
   const onGetProduct = async () => {
     const response = await getProduct(id);
