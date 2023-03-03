@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getProducts, searchProduct } from "../../api/Products";
 import Product from "./Product";
 import styles from "./home.module.scss"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Home = ()=>{
     const navigate = useNavigate();
@@ -56,6 +56,8 @@ const Home = ()=>{
                     <input type="text" value={searchText} onChange={changeSearchText} />
                     <button type="button" onClick={onSearch}>검색</button>
                     <button type="button" onClick={onClear} >초기화</button>
+                    <Link to='/auth/login'><button type="button" className={styles.loginButton}>
+                        LOGIN</button></Link>
                 </div>
             </header>
             <section >

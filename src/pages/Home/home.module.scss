@@ -3,7 +3,7 @@
     background-color: black;
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     >.title{
         padding: 20px;
         color: white;
@@ -13,6 +13,8 @@
     >.inputContainer{
         width: calc(100vw - 60px);
         padding: 20px;
+        display: flex;
+        align-items: center;
         >button{
             border-radius: 20px;
             font-size: 20px;
@@ -32,7 +34,7 @@
             }
         }
         >input{
-            width: calc(100% - 200px);
+            width: calc(100% - 220px);
             height: 35px;
             font-size: 20px;
             padding-left: 10px;
@@ -44,7 +46,24 @@
         }
     }
 }
-
+.loginButton{
+  border-radius: 25px;
+  width: 45px;
+  height: 45px;
+  padding: 0;
+  margin-left: 15px;
+  background-color: white;
+  border: 0px;
+  &:hover{
+      transform: translate(-2px, -2px);
+      background-color: aliceblue;
+      transition: 0.2s;
+    }
+  &:active{
+    transform: translate(0px, 0px);
+    transition: 0.2s;
+  }
+}
 ul {
     column-gap: 12px;
     row-gap: 8px;
