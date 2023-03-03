@@ -40,7 +40,8 @@ const Auth = ()=>{
                 onChange={onChange}
                 />
             </label>
-            <button className={styles.submitButton} type="submit">회원가입</button>
+            <button className={styles.submitButton} type="submit">
+                회원가입</button>
             </form>
         </div>
     )
