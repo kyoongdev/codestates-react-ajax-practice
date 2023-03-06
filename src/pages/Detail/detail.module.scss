@@ -1,0 +1,42 @@
+.header{
+    width: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    >.title{
+        padding: 20px;
+        color: white;
+        font-size: 40px;
+    }
+    
+}
+
+.button{
+    border-radius: 30px;
+    font-size: 20px;
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    background-color: white;
+    border: 0px;
+    &:hover{
+        transform: translate(-2px, -2px);
+        background-color: aliceblue;
+        transition: 0.2s;
+      }
+    &:active{
+      transform: translate(0px, 0px);
+      transition: 0.2s;
+    }
+}
+
+section{
+    >img{
+        width: 100vw;
+    }
+    >.description{
+        padding: 20px;
+        font-size: 30px;
+    }
+}
