@@ -1,14 +1,15 @@
 import React from "react"
 import styles from "./register.module.scss"
 import { useState } from "react"
+import { registerApi } from "../../../api/Auth"
+import { useNavigate } from "react-router-dom"
 const Register = () =>{
+    const navigate = useNavigate();
     const [form,setForm] = useState({
-        userId:"",
         password:"",
         checkPassword:"",
         userName:"",
         email:"",
-        phone:"",
     });
     const onChange = (e) =>{
         const {name,value} = e.currentTarget;
@@ -16,29 +17,58 @@ const Register = () =>{
             ...form,
             [name]:value,
         })
+       
     }
-    const onClick = () => {
-        console.log(form);
+
+    
+    const onSubmit = async (e) =>{
+        e.preventDefault();
+        console.log(e);
         
-        setForm({
-            userId:"",
-            password:"",
-            checkPassword:"",
-            userName:"",
-            email:"",
-            phone:"",
-        })
+        const emailReg = 
+        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+        if(!emailReg.test(form.email)){
+            alert("이메일 형식이 올바르지 않음.");
+            return;
+        }
+        if(form.checkPassword !== form.password){
+            alert("비밀번호 맞지않음");
+            return;
+        }
+        const response = await registerApi({
+            "email":form.email,
+            "password": form.password,
+            "name": form.userName,
+        });
+        if(response.status ===200){
+            const data = response.data;
+            console.log(data);
+            localStorage.setItem("accessToken", data.accessToken);
+            localStorage.setItem("refreshToken", data.refreshToken);
+            //결과확인위해 alert 넣음
+            alert("회원가입 완료!");
+            navigate("/");
+        }else{
+            alert("회원가입 실패!!");
+        }
     }
     return(
         <main className={styles.wrapper}>
-            <section className={styles.registerWrapper}>
+            <form className={styles.registerWrapper} id="registerForm" onSubmit={onSubmit}>
+             
                 <div className={styles.inputWrapper} >
                     <h1>REGISTER</h1>
                 </div>
                 <div className={styles.inputWrapper}>
+                    <label >
+                    <p>이름</p>
+                    <input name="userName" placeholder="홍길동" value={form.userName} onChange={onChange}/>
+                    </label>
+                </div>
+                <div className={styles.inputWrapper}>
                     <label >     
-                    <p>아이디</p>
-                    <input name="userId" placeholder="@codestate.com" value={form.userId} onChange={onChange}/>
+                    <p>이메일</p>
+                    <input name="email" placeholder="@codestate.com" value={form.email} onChange={onChange}/>
                     </label>
                 </div>
                 <div className={styles.inputWrapper}>
@@ -51,21 +81,10 @@ const Register = () =>{
                     <p>비밀번호 재확인</p>
                     <input name="checkPassword" type="password" value={form.checkPassword} onChange={onChange}/></label>
                 </div>
-                <div className={styles.inputWrapper}>
-                    <label >
-                    <p>이름</p>
-                    <input name="userName" placeholder="홍길동" value={form.userName} onChange={onChange}/>
-                    </label>
-                </div>
-                <div className={styles.inputWrapper}><label >
-                <p>본인확인 이메일 </p>
-                <input type="email" name="email" placeholder="선택사항 hongildong@codestate.com" value={form.email} onChange={onChange}/></label></div>
-                <div className={styles.inputWrapper}><label >
-                <p>휴대전화</p>
-                <input type="tel" name="phone" placeholder="010-0000-0000" value={form.phone} onChange={onChange}/></label></div>
+                
 
-                <button className={styles.submitButton} onClick={onClick}>SUBMIT</button>
-            </section>
+                <button type="submit"className={styles.submitButton}>SUBMIT</button>
+            </form>
         </main>
     );
 }

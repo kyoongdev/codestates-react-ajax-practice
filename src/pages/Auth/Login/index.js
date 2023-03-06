@@ -2,11 +2,12 @@ import React from "react";
 import styles from "./login.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { loginApi} from "../../../api/Auth";
 
 const Login = () =>{
     const navigate = useNavigate();
     const [form, setForm] = useState({
-        userId:"",
+        email:"",
         password:"",
     });
     
@@ -17,24 +18,43 @@ const Login = () =>{
             [name] : value,          
         });
     };
-    const onClick = (e) => {
+    /*const onClick = (e) => {
         console.log(form);
+        
         setForm({
-            userId:"",
+            email:"",
             password:"",
         });
+    }*/
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        console.log(e);
+        const response = await loginApi({
+            email:form.email,
+            password:form.password,
+        })
+        
+        if(response.status === 200){
+            console.log(response.data);
+            alert("로그인완료!");
+            navigate("/");
+        }else{
+            alert("로그인실패!");
+        }
     }
+
+    
     
     return(
         <main className={styles.wrapper}>
             <section className={styles.loginWrapper}>
-                <form className={styles.loginForm}>
+                <form className={styles.loginForm} id="loginForm" onSubmit = {onSubmit}>
                     <h1>LOGIN</h1>
                     <div className={styles.inputWrapper}>
                         <input 
-                        name="userId" 
+                        name="email" 
                         value={form.userId} 
-                        placeholder="아이디"
+                        placeholder="이메일"
                         onChange={onChange}/>
             
                         <input 
@@ -44,7 +64,7 @@ const Login = () =>{
                         placeholder="비밀번호"
                         onChange={onChange}/>
                     </div>
-                    <button className={styles.submitButton} type="button" onClick={onClick}>로그인</button>
+                    <button className={styles.submitButton} type="submit" form="loginForm" >로그인</button>
                 </form>
             </section>
         </main>
