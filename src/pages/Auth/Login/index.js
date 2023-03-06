@@ -18,30 +18,35 @@ const Login = () =>{
             [name] : value,          
         });
     };
-    /*const onClick = (e) => {
-        console.log(form);
-        
-        setForm({
-            email:"",
-            password:"",
-        });
-    }*/
+
     const onSubmit = async (e) => {
         e.preventDefault();
         console.log(e);
-        const response = await loginApi({
-            email:form.email,
-            password:form.password,
-        })
         
-        if(response.status === 200){
+        try{
+            const response = await loginApi({
+                email:form.email,
+                password:form.password,
+            });
+            
+            if(response.status === 200){
             console.log(response.data);
             alert("로그인완료!");
             navigate("/");
-        }else{
-            alert("로그인실패!");
+            }
+        }catch(error){
+            if(error.response.status === 404){
+                alert("존재하지 않는 유저!");
+                navigate("/auth/register");
+            }
+            else if(error.response.status===400){
+                alert("비밀번호 일치하지 않음!");
+            }else{
+                alert("로그인 실패!");
+            }
         }
-    }
+        
+    };
 
     
     
