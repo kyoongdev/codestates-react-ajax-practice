@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./login.module.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { loginApi} from "../../../api/Auth";
+import { loginApi,kakaoLogin} from "../../../api/Auth";
+import {KakaoLoginIcon} from "../../../assets/icon"
 
 const Login = () =>{
     const navigate = useNavigate();
@@ -48,7 +49,13 @@ const Login = () =>{
         
     };
 
-    
+    const onClickKakao= async()=>{
+        const response = await kakaoLogin();
+
+        if (response.status === 200) {
+            window.open(response.data.url, "_self");
+        }
+    }
     
     return(
         <main className={styles.wrapper}>
@@ -69,7 +76,14 @@ const Login = () =>{
                         placeholder="비밀번호"
                         onChange={onChange}/>
                     </div>
-                    <button className={styles.submitButton} type="submit" form="loginForm" >로그인</button>
+                    <div className={styles.buttonWrapper}>
+                        <button className={styles.submitButton} type="submit" form="loginForm" >로그인</button>
+                        <button className={styles.kakaoButton} type="button" onClick={onClickKakao}>
+                            <KakaoLoginIcon/>
+                            카카오로 로그인하기
+                        </button>
+                    </div>
+
                 </form>
             </section>
         </main>

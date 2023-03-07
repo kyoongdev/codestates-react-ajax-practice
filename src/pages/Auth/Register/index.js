@@ -35,22 +35,31 @@ const Register = () =>{
             alert("비밀번호 맞지않음");
             return;
         }
-        const response = await registerApi({
-            "email":form.email,
-            "password": form.password,
-            "name": form.userName,
-        });
-        if(response.status ===200){
-            const data = response.data;
-            console.log(data);
-            localStorage.setItem("accessToken", data.accessToken);
-            localStorage.setItem("refreshToken", data.refreshToken);
-            //결과확인위해 alert 넣음
-            alert("회원가입 완료!");
-            navigate("/");
-        }else{
-            alert("회원가입 실패!!");
+        
+        try{
+            const response = await registerApi({
+                "email":form.email,
+                "password": form.password,
+                "name": form.userName,
+            });
+            if(response.status ===200){
+                const data = response.data;
+                console.log(data);
+                localStorage.setItem("accessToken", data.accessToken);
+                localStorage.setItem("refreshToken", data.refreshToken);
+                //결과확인위해 alert 넣음
+                alert("회원가입 완료!");
+                navigate("/");
+            }
+        }catch(error){
+            if(error.response.status===409){
+                alert("이미 가입한 회원입니다.");
+            }
+            else{
+                alert("회원가입 실패!!");
+            }
         }
+       
     }
     return(
         <main className={styles.wrapper}>

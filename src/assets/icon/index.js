@@ -1,0 +1,1 @@
+export {ReactComponent as KakaoLoginIcon} from "./kakao-login.svg"
