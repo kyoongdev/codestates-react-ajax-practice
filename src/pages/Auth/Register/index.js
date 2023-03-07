@@ -3,6 +3,7 @@ import styles from "./register.module.scss"
 import { useState } from "react"
 import { registerApi } from "../../../api/Auth"
 import { useNavigate } from "react-router-dom"
+import { saveTokens ,isVaildateEmail} from "../../../utils"
 const Register = () =>{
     const navigate = useNavigate();
     const [form,setForm] = useState({
@@ -25,10 +26,8 @@ const Register = () =>{
         e.preventDefault();
         console.log(e);
         
-        const emailReg = 
-        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-        if(!emailReg.test(form.email)){
-            alert("이메일 형식이 올바르지 않음.");
+        if(!isVaildateEmail(form.email)){
+            alert("이메일 형식이 맞지않음");
             return;
         }
         if(form.checkPassword !== form.password){
@@ -45,8 +44,7 @@ const Register = () =>{
             if(response.status ===200){
                 const data = response.data;
                 console.log(data);
-                localStorage.setItem("accessToken", data.accessToken);
-                localStorage.setItem("refreshToken", data.refreshToken);
+                saveTokens(data);
                 //결과확인위해 alert 넣음
                 alert("회원가입 완료!");
                 navigate("/");

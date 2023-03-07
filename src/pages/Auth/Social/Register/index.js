@@ -4,6 +4,7 @@ import { useState } from "react"
 import { kakaoRegister } from "../../../../api/Auth"
 import { useLocation, useNavigate } from "react-router-dom"
 import qs from "query-string"
+import { saveTokens ,isVaildateEmail} from "../../../../utils"
 const Register = () =>{
     const navigate = useNavigate();
     const location = useLocation();
@@ -20,19 +21,10 @@ const Register = () =>{
         })       
     }
 
-    const emailTest = (email) =>{
-        const emailReg = 
-        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-        if(!emailReg.test(form.email)) {
-            alert("이메일 형식이 올바르지 않음.");
-            return false;
-        }
-        else return true; 
-    }
     const onSubmit = async (e) =>{
         e.preventDefault();
 
-        if(!emailTest(form.email)) return;
+        if(!isVaildateEmail(form.email)) return;
        
         const search = qs.parse(location.search);
         const response = await kakaoRegister({
@@ -44,8 +36,7 @@ const Register = () =>{
         console.log({response});
         if(response.status ===200){
             const data = response.data;      
-            localStorage.setItem("accessToken", data.accessToken);
-            localStorage.setItem("refreshToken", data.refreshToken);
+            saveTokens(data);
             //결과확인위해 alert 넣음
             alert("회원가입 완료!");
             navigate("/");
